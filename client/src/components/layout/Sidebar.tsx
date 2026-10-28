@@ -58,7 +58,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
 
   return (
     <aside
-      className={`fixed top-0 left-0 h-screen bg-[#000000] border-r border-[#262626] flex flex-col justify-between transition-all duration-300 z-30 ${
+      className={`h-full bg-[#000000] border-r border-[#262626] flex flex-col justify-between transition-all duration-300 z-30 flex-shrink-0 relative ${
         collapsed ? 'w-20' : 'w-64'
       }`}
     >

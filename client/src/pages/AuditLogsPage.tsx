@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ApiClient } from '../services/api';
+import { MOCK_AUDIT_LOGS } from '../services/mockData';
 import { formatDate } from '../lib/utils';
 import {
   History,
@@ -29,11 +30,14 @@ export const AuditLogsPage: React.FC = () => {
       if (selectedRole) params.actorRole = selectedRole;
 
       const res = await ApiClient.getAuditLogs(params);
-      if (res.success) {
-        setLogs(res.logs);
+      if (res.success && (res.logs || res.auditLogs)) {
+        setLogs(res.logs || res.auditLogs);
+      } else {
+        setLogs(MOCK_AUDIT_LOGS);
       }
     } catch (err) {
       console.error('Failed to load audit logs', err);
+      setLogs(MOCK_AUDIT_LOGS);
     } finally {
       setLoading(false);
     }

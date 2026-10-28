@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ApiClient } from '../services/api';
 import { Institution } from '../types';
+import { MOCK_INSTITUTIONS } from '../services/mockData';
 import {
   Building2,
   Search,
@@ -31,11 +32,14 @@ export const InstitutionsPage: React.FC = () => {
       if (selectedType) params.type = selectedType;
 
       const res = await ApiClient.getInstitutions(params);
-      if (res.success) {
+      if (res.success && res.institutions?.length > 0) {
         setInstitutions(res.institutions);
+      } else {
+        setInstitutions(MOCK_INSTITUTIONS);
       }
     } catch (err) {
       console.error('Failed to load institutions', err);
+      setInstitutions(MOCK_INSTITUTIONS);
     } finally {
       setLoading(false);
     }

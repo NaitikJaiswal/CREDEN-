@@ -84,6 +84,19 @@ export interface ValidationIssue {
   createdAt: string;
 }
 
+export interface AuditLog {
+  id: string;
+  action: string;
+  actorEmail: string;
+  actorRole: string;
+  resourceType: string;
+  resourceId?: string;
+  outcome: string;
+  details: string;
+  ipAddress?: string;
+  timestamp: string;
+}
+
 export interface DashboardOverview {
   kpis: {
     totalInstitutions: { value: number; trend: string; tooltip: string };

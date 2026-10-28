@@ -28,22 +28,20 @@ export const AppLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] text-[#F1F5F9] flex flex-col">
-      {/* 1. Global Demo Mode Banner */}
-      <DemoBanner />
+    <div className="h-screen w-screen bg-[#000000] text-[#F1F5F9] flex flex-col overflow-hidden">
+      {/* 1. Global Demo Mode Banner (fixed at the very top) */}
+      <div className="flex-shrink-0 z-40 border-b border-[#222222]">
+        <DemoBanner />
+      </div>
 
-      <div className="flex flex-1 relative">
+      <div className="flex flex-1 h-[calc(100vh-38px)] overflow-hidden relative">
         {/* 2. Collapsible Sidebar */}
         <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
 
         {/* 3. Main Workspace Area */}
-        <div
-          className={`flex-1 flex flex-col min-h-[calc(100vh-37px)] transition-all duration-300 ${
-            collapsed ? 'ml-20' : 'ml-64'
-          }`}
-        >
+        <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
           {/* Top Bar Header */}
-          <header className="h-16 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-[#222222] px-6 flex items-center justify-between sticky top-0 z-20">
+          <header className="h-16 bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#222222] px-6 flex items-center justify-between sticky top-0 z-20 flex-shrink-0">
             {/* Breadcrumb Trail */}
             <div className="flex items-center gap-2 text-xs text-neutral-400">
               <Link to="/dashboard" className="hover:text-white transition-colors">
