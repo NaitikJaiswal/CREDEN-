@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #0A0A0A;
+    --bg-card: #121212;
+    --accent-cyan: #00F0FF;
+    --accent-violet: #8B5CF6;
+  }
+
+  body {
+    background-color: #000000;
+    color: #F1F5F9;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* Glassmorphism & Cyber Gradients */
+.glass-panel {
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-border {
+  border: 1px solid transparent;
+  background: linear-gradient(#121212, #121212) padding-box,
+              linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)) border-box;
+}
+
+/* Subtle Black Grid pattern */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Global Recharts Dark High-Contrast Tooltip Styling */
+.recharts-default-tooltip {
+  background-color: #121212 !important;
+  border: 1px solid #333333 !important;
+  border-radius: 8px !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+  padding: 8px 12px !important;
+}
+
+.recharts-tooltip-item,
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-value,
+.recharts-tooltip-item-separator {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+.recharts-tooltip-label {
+  color: #D4D4D8 !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Formal Slot Interactive Micro-Interactions */
+.formal-slot {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.18s ease;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+.formal-slot:hover {
+  transform: translateY(-2.5px);
+  border-color: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 255, 255, 0.06);
+}
+
+.formal-slot:active {
+  transform: scale(0.975);
+  border-color: rgba(255, 255, 255, 0.65);
+  background-color: #181818;
+}
+
+/* Formal Slot Ripple Wave */
+@keyframes formal-ripple-wave {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.85;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45);
+  }
+  60% {
+    transform: scale(1.03);
+    opacity: 1;
+    box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.formal-slot-active {
+  animation: formal-ripple-wave 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-color: #FFFFFF !important;
+}
+
+/* Formal Sheen Sweeper */
+@keyframes formal-sheen {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+.formal-sheen-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.formal-sheen-effect:hover::after {
+  animation: formal-sheen 0.75s ease;
+}

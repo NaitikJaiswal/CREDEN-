@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Production output
+dist/
+build/
+
+# Local Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Vite caches
+.vite/
+.vite-temp/
+
+# Logs
+*.log
