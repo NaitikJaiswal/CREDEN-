@@ -1,4 +1,39 @@
-import { Institution, StudentRecord, ValidationIssue, AuditLog } from '../types';
+import { Institution, StudentRecord, ValidationIssue, AuditLog, User } from '../types';
+
+export const MOCK_USERS: Record<string, User> = {
+  AICTE_ADMIN: {
+    id: 'USER-001',
+    name: 'Dr. Ramesh Sharma',
+    email: 'aicte.admin@creden.gov.in',
+    roles: ['AICTE_ADMIN'],
+  },
+  INSTITUTION_ADMIN: {
+    id: 'USER-002',
+    name: 'Prof. Suresh Patil',
+    email: 'admin@coep.ac.in',
+    roles: ['INSTITUTION_ADMIN'],
+    institutionId: 'INST-001',
+    institution: {
+      id: 'INST-001',
+      institutionCode: 'AICTE-MH-1029',
+      name: 'COEP Technological University',
+      state: 'Maharashtra',
+    },
+  },
+  STUDENT: {
+    id: 'USER-003',
+    name: 'Aarav Sharma',
+    email: 'student.aarav@creden.demo',
+    roles: ['STUDENT'],
+    institutionId: 'INST-001',
+  },
+  VERIFIER: {
+    id: 'USER-004',
+    name: 'Priya Nambiar',
+    email: 'verifier@infosys.demo',
+    roles: ['VERIFIER'],
+  },
+};
 
 export const MOCK_INSTITUTIONS: Institution[] = [
   {

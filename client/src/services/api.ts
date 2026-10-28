@@ -3,6 +3,7 @@ import {
   MOCK_STUDENTS,
   MOCK_VALIDATION_ISSUES,
   MOCK_AUDIT_LOGS,
+  MOCK_USERS,
 } from './mockData';
 
 const API_BASE = (import.meta as any).env?.VITE_API_URL || '/api/v1';
@@ -206,19 +207,51 @@ export class ApiClient {
       } as unknown as T;
     }
 
-    // 7. Auth me
-    if (pathname.includes('/auth/me')) {
-      const role = localStorage.getItem('creden_role') || 'AICTE_ADMIN';
+    // 7. Auth login, demo-login, me, logout
+    if (pathname === '/auth/login') {
+      let bodyData: any = {};
+      try {
+        bodyData = typeof _options.body === 'string' ? JSON.parse(_options.body) : {};
+      } catch {}
+      const email = (bodyData.email || '').toLowerCase();
+      let role = 'AICTE_ADMIN';
+      if (email.includes('coep') || email.includes('inst')) role = 'INSTITUTION_ADMIN';
+      else if (email.includes('aarav') || email.includes('student')) role = 'STUDENT';
+      else if (email.includes('verif') || email.includes('infosys')) role = 'VERIFIER';
+
+      const user = MOCK_USERS[role] || MOCK_USERS['AICTE_ADMIN'];
       return {
         success: true,
-        user: {
-          id: 'USER-001',
-          name: 'Dr. Ramesh Sharma',
-          email: 'aicte.admin@creden.gov.in',
-          roles: [role],
-          accountStatus: 'ACTIVE',
-        },
+        token: `creden-jwt-token-${role}`,
+        user,
       } as unknown as T;
+    }
+
+    if (pathname === '/auth/demo-login') {
+      let bodyData: any = {};
+      try {
+        bodyData = typeof _options.body === 'string' ? JSON.parse(_options.body) : {};
+      } catch {}
+      const role = bodyData.role || 'AICTE_ADMIN';
+      const user = MOCK_USERS[role] || MOCK_USERS['AICTE_ADMIN'];
+      return {
+        success: true,
+        token: `creden-jwt-token-${role}`,
+        user,
+      } as unknown as T;
+    }
+
+    if (pathname.includes('/auth/me')) {
+      const storedRole = localStorage.getItem('creden_role') || 'AICTE_ADMIN';
+      const user = MOCK_USERS[storedRole] || MOCK_USERS['AICTE_ADMIN'];
+      return {
+        success: true,
+        user,
+      } as unknown as T;
+    }
+
+    if (pathname.includes('/auth/logout')) {
+      return { success: true } as unknown as T;
     }
 
     return { success: true } as unknown as T;
